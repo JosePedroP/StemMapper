@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2/set/2017 13:22:48 by Hibernate Tools 4.0.1.Final -->
+<hibernate-mapping>
+    <class name="databaseAccess.Expression" table="expression" catalog="stemplotdbn">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="genes" class="databaseAccess.Genes" fetch="select">
+            <column name="genes_id" not-null="true" />
+        </many-to-one>
+        <many-to-one name="sample" class="databaseAccess.Sample" fetch="select">
+            <column name="sample_id" not-null="true" />
+        </many-to-one>
+        <property name="expression" type="double">
+            <column name="expression" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="cfrma" type="java.lang.Double">
+            <column name="cfrma" precision="22" scale="0" />
+        </property>
+        <property name="quantiled" type="java.lang.Double">
+            <column name="quantiled" precision="22" scale="0" />
+        </property>
+    </class>
+</hibernate-mapping>

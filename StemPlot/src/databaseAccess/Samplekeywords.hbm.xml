@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 28/mar/2017 18:11:50 by Hibernate Tools 4.0.1.Final -->
+<hibernate-mapping>
+    <class name="databaseAccess.Samplekeywords" table="samplekeywords" catalog="stemplotdbn">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="keywords" class="databaseAccess.Keywords" fetch="select">
+            <column name="keywords_id" not-null="true" />
+        </many-to-one>
+        <many-to-one name="sample" class="databaseAccess.Sample" fetch="select">
+            <column name="sample_id" not-null="true" />
+        </many-to-one>
+        <property name="curated" type="boolean">
+            <column name="curated" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

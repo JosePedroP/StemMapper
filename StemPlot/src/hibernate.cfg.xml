@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.bytecode.use_reflection_optimizer">false</property>
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.password">4hdnetdb!</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/stemplotdbn</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.current_session_context_class">thread</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="hibernate.search.autoregister_listeners">false</property>
+        
+        <property name="connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider</property>
+        <property name="hibernate.c3p0.acquire_increment">2</property>
+  		<property name="hibernate.c3p0.idle_test_period">14400</property>
+  		<property name="hibernate.c3p0.timeout">300</property>
+  		<property name="hibernate.c3p0.max_size">20</property>
+  		<property name="hibernate.c3p0.min_size">5</property>
+		<property name="hibernate.c3p0.max_statement">0</property>
+  		<property name="hibernate.c3p0.preferredTestQuery">select 1;</property>
+  		<property name="hibernate.c3p0.validate">true</property>
+        
+        <mapping resource="databaseAccess/Expression.hbm.xml" />
+        <mapping resource="databaseAccess/Sample.hbm.xml" />
+        <mapping resource="databaseAccess/Samplekeywords.hbm.xml" />
+        <mapping resource="databaseAccess/Supertype.hbm.xml" />
+        <mapping resource="databaseAccess/Genes.hbm.xml" />
+        <mapping resource="databaseAccess/Sampletime.hbm.xml" />
+        <mapping resource="databaseAccess/Keywords.hbm.xml" />
+        <mapping resource="databaseAccess/Samplecondition.hbm.xml" />
+        <mapping resource="databaseAccess/Genealias.hbm.xml" />
+        <mapping resource="databaseAccess/Sampletype.hbm.xml" />
+        <mapping resource="databaseAccess/Organisms.hbm.xml" />
+        <mapping resource="databaseAccess/Experiment.hbm.xml" />
+        <mapping resource="databaseAccess/Experimentkeywords.hbm.xml" />
+        <mapping resource="databaseAccess/Probes.hbm.xml" />
+    </session-factory>
+</hibernate-configuration>

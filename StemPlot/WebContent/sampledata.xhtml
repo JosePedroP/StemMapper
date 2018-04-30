@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>StemMapper</title>
+	<script src="sampledata.js" type="text/javascript"/>
+	<script src="blocker.js" type="text/javascript"/>
+	<link href="./css/SearchPageStyle.css" rel="stylesheet" type="text/css"/>
+
+</h:head>
+<h:body onload="startup()">
+
+<h:form id="sc">
+	<div id="loading-image" style="position:absolute; border:1px;solid;top:35%;left:25%;display:none"><img src="./images/progress.gif" /></div>
+	<p:outputPanel id="out1">
+		<table border="1">
+			<tr>
+				<td>GEO Sample</td>
+				<td>
+					<h:outputLink value="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=#{sampleDataBean.name}" target="new" style="padding-left:1%;padding-right:6%">
+						#{sampleDataBean.name}
+					</h:outputLink>
+				</td>
+			</tr>
+			<tr>
+				<td>Tissue</td>
+				<td>#{sampleDataBean.supertype}</td>
+			</tr>
+			<tr>
+				<td>Cell lineage</td>
+				<td>#{sampleDataBean.type}</td>
+			</tr>
+			<tr>
+				<td>Experiment</td>
+				<td>
+				
+					<h:outputLink value="experimentdata.jsf?p=#{sampleDataBean.eid}" target="new" style="padding-left:1%;padding-right:6%">
+						#{sampleDataBean.ename}
+					</h:outputLink>
+				</td>
+			</tr>
+			<tr>
+				<td>Organism</td>
+				<td>#{sampleDataBean.organims}</td>
+			</tr>
+			<tr>
+				<td>Platform</td>
+				<td>#{sampleDataBean.platform}</td>
+			</tr>
+			<tr>
+				<td>Conditions</td>
+				<td>#{sampleDataBean.conditions}</td>
+			</tr>
+			<tr>
+				<td>Experimental setting</td>
+				<td>#{sampleDataBean.vivovitro}</td>
+			</tr>
+			<tr>
+				<td>Age</td>
+				<td>#{sampleDataBean.time}</td>
+			</tr>
+			<tr>
+				<td>Markers</td>
+				<td>#{sampleDataBean.surfacemarkers}</td>
+			</tr>
+		</table>
+		<br/>
+		
+		<p>Please note that displaying/downloading these file(s) might take a few minutes.</p>
+		
+		<h:commandButton id="giveMeATXT" class="shutdownit" value="Download sample data" action="#{downloadBean.getText}"/>
+		<br/>
+		<br/>
+	</p:outputPanel>
+	<p:outputPanel id="out2">
+		<p:commandButton onclick="showload();" oncomplete="hideload();" id="getExpression" value="View Expression Values" update="sc:out2" action="#{sampleDataBean.getSampleExpression}" rendered="#{sampleDataBean.showButton}"/>
+		<br/>
+		<p:outputPanel id="out3" rendered="#{sampleDataBean.showButton == 'true' ? 'false': 'true'}">
+			<table>
+				<tr>
+					<td>Entrez_id</td>
+					<td>Gene_symbol</td>
+					<td>Log2_exprs_val</td>
+				</tr>
+				<ui:repeat var="exp" value="#{sampleDataBean.expression}">
+					<tr>
+						<td>
+							<h:outputLink target="_blank" value="http://www.ncbi.nlm.nih.gov/gene/#{exp[0]}" style="color:blue">
+								#{exp[0]}
+							</h:outputLink>
+						</td>
+						<td>#{exp[2]}</td>
+						<td>#{exp[1]}</td>
+					</tr>
+				</ui:repeat>
+			</table>
+		</p:outputPanel>
+	</p:outputPanel>
+	<h:inputHidden value="#{downloadBean.inputVal}" id="inputval"/>
+	<h:inputHidden value="#{sampleDataBean.setId}" id="hiddenPos"/>
+	<p:commandButton id="update1" value="update1" update="sc:out1" action="#{sampleDataBean.getSampleData}" style="display:none"/>
+
+
+</h:form>
+</h:body>
+</html>

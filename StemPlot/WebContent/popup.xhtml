@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>StemMapper</title>
+	<script src="jquery-3.2.1.min.js" type="text/javascript"/>
+	<script src="popup.js" type="text/javascript"/>
+	<script src="sorttable.js" type="text/javascript"/>
+	<link href="./css/SearchPageStyle.css" rel="stylesheet" type="text/css"/>
+
+</h:head>
+<h:body onload="startuppop()">
+	<h:form id="sc">
+		<h1 id="ti"></h1>
+		<br/>
+		<input type="button" value="Lineage Expression" onclick="emptyexplist();loadsubdata(true);"/>
+		<input type="button" value="Tissue Expression" onclick="emptyexplist();loadsubdata(false);"/>
+		<br/>
+		<h:commandButton id="giveMeATable" value="Download" action="#{downloadBean.getTable}"/>
+		<br/>
+		<table id="gdata">
+			<thead>
+				<tr>
+					<th>Tissue</th>
+					<th>Median Expression</th>
+					<th>PEM</th>
+					<th>Min</th>
+					<th>Max</th>
+				</tr>
+			</thead>
+			<tbody id="bod">
+			</tbody>
+		</table>
+		<h:inputHidden value="#{downloadBean.inputVal}" id="inputval"/>
+		<h:inputHidden value="#{downloadBean.filename}" id="filename"/>
+		
+	</h:form>
+</h:body>
+</html>

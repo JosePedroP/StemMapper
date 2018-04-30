@@ -1,0 +1,1017 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>StemMapper</title>
+	<script src="plotly-latest.min.js"></script>
+	<script src="popup.js" type="text/javascript"/>
+	<script src="mainJS.js" type="text/javascript"/>
+	<script src="toggledis.js" type="text/javascript"/>
+	<script src="sorttable.js" type="text/javascript"/>
+	<script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-18078633-15"></script>
+	<script>
+  		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+  		gtag('js', new Date());
+		gtag('config', 'UA-18078633-15');
+	</script>
+	
+	<link href="./css/SearchPageStyle.css" rel="stylesheet" type="text/css"/>
+</h:head>
+<h:body>
+
+<h:form id="sc" >
+
+<h:outputStylesheet name="./css/SearchPageStyle.css" />
+
+	<p:outputPanel id="hiddendata">
+		<h:inputHidden value="#{downloadBean.inputVal}" id="inputval"/>
+		
+		<h:inputHidden value="#{graphBean.markersToUse}" id="markersToUse"/>
+		<h:inputHidden value="#{graphBean.useThisDataTypes}" id="useThisDataTypes"/>
+		
+		<h:inputHidden value="#{graphBean.dendograme}" id="dendograme"/>
+		<h:inputHidden value="#{graphBean.dendogramelables}" id="dendogramelables"/>
+		<h:inputHidden value="#{graphBean.heatmaprows}" id="heatmaprows"/>
+		<h:inputHidden value="#{graphBean.heatmaprowsnames}" id="heatmaprowsnames"/>
+		<h:inputHidden value="#{graphBean.heatlabelcolors}" id="heatlabelcolors"/>
+		<h:inputHidden value="#{graphBean.heatlabeltypes}" id="heatlabeltypes"/>
+		<h:inputHidden value="#{graphBean.heatsupertypes}" id="heatsupertypes"/>
+	
+		<h:inputHidden value="#{graphBean.dendogrameq}" id="dendogrameq"/>
+		<h:inputHidden value="#{graphBean.dendogramelablesq}" id="dendogramelablesq"/>
+		<h:inputHidden value="#{graphBean.heatmaprowsq}" id="heatmaprowsq"/>
+		<h:inputHidden value="#{graphBean.heatmaprowsnamesq}" id="heatmaprowsnamesq"/>
+		<h:inputHidden value="#{graphBean.heatlabelcolorsq}" id="heatlabelcolorsq"/>
+		<h:inputHidden value="#{graphBean.heatlabeltypesq}" id="heatlabeltypesq"/>
+		<h:inputHidden value="#{graphBean.heatsupertypesq}" id="heatsupertypesq"/>
+		
+		<h:inputHidden value="#{graphBean.pc1}" id="pc1"/>
+		<h:inputHidden value="#{graphBean.pc2}" id="pc2"/>
+		<h:inputHidden value="#{graphBean.pointNames}" id="pointNames"/>
+		<h:inputHidden value="#{graphBean.pointColors}" id="pointColors"/>
+		
+		<h:inputHidden value="#{graphBean.pointTypes}" id="pointTypes"/>
+		<h:inputHidden value="#{graphBean.pointTypesLegend}" id="pointTypesLegend"/>
+		<h:inputHidden value="#{graphBean.pointTypesExtra}" id="pointTypesExtra"/>
+		<h:inputHidden value="#{graphBean.pointDatabaseIds}" id="pointDatabaseIds"/>
+		
+		<h:inputHidden value="#{graphBean.pointCondition}" id="pointCondition"/>
+		<h:inputHidden value="#{graphBean.pointConditionLegend}" id="pointConditionLegend"/>
+		<h:inputHidden value="#{graphBean.pointConditionExtra}" id="pointConditionExtra"/>
+		
+		<h:inputHidden value="#{graphBean.pointWildtype}" id="pointWildtype"/>
+		<h:inputHidden value="#{graphBean.pointWildtypeLegend}" id="pointWildtypeLegend"/>
+		<h:inputHidden value="#{graphBean.pointWildtypeExtra}" id="pointWildtypeExtra"/>
+		
+		<h:inputHidden value="#{graphBean.pointTypesAlt}" id="pointTypesAlt"/>
+		<h:inputHidden value="#{graphBean.pointTypesLegendAlt}" id="pointTypesLegendAlt"/>
+		<h:inputHidden value="#{graphBean.pointTypesAltExtra}" id="pointTypesAltExtra"/>
+		
+		<h:inputHidden value="#{graphBean.pointSuper}" id="pointSuper"/>
+		<h:inputHidden value="#{graphBean.pointSuperLegend}" id="pointSuperLegend"/>
+		<h:inputHidden value="#{graphBean.pointSuperExtra}" id="pointSuperExtra"/>
+		
+		<h:inputHidden value="#{graphBean.pointPureStem}" id="pointPureStem"/>
+		<h:inputHidden value="#{graphBean.pointPureStemLegend}" id="pointPureStemLegend"/>
+		<h:inputHidden value="#{graphBean.pointPureStemExtra}" id="pointPureStemExtra"/>
+		
+		<h:inputHidden value="#{graphBean.pointClass}" id="pointClass"/>
+		<h:inputHidden value="#{graphBean.pointClassLegend}" id="pointClassLegend"/>
+		<h:inputHidden value="#{graphBean.pointClassExtra}" id="pointClassExtra"/>
+		
+		<h:inputHidden value="#{graphBean.pointSM}" id="pointSM"/>
+		<h:inputHidden value="#{graphBean.pointSMLegend}" id="pointSMLegend"/>
+		<h:inputHidden value="#{graphBean.pointSMExtra}" id="pointSMExtra"/>
+		
+		<h:inputHidden value="#{graphBean.userdefinedid}" id="userdefinedid"/>
+		
+		<h:inputHidden value="#{corrBean.corrMainGeneId}" id="corrMainGeneId"/>
+		<h:inputHidden value="#{corrBean.corrMainGeneName}" id="corrMainGeneName"/>
+		<h:inputHidden value="#{corrBean.corrDatabaseIds}" id="corrDatabaseIds"/>
+		
+		<h:inputHidden value="#{graphBean.pvPC1}" id="pvpc1"/>
+		<h:inputHidden value="#{graphBean.pvPC2}" id="pvpc2"/>
+		
+	</p:outputPanel>
+	
+	<div style="display:none">
+		
+		<p:fileUpload id="upload" fileUploadListener="#{graphBean.handleFileUpload}" update="sc:tab sc:hiddendata" onstart="disableInputs();showload('');" oncomplete="aftermath();goingtosortit();" fileLimit="1" multiple="false" auto="true"/>
+		<p:commandButton id="inputless" value="Check Wihtout Input" onclick="showload('')" update="sc:tab sc:hiddendata" oncomplete="aftermath();goingtosortit();" action="#{graphBean.doFullDataProcessingGeneOnly}"/>
+		
+		<p:commandButton id="search" value="Search" action="#{graphBean.searchDatabase}" update="sc:tab:restultabel" onclick="showload('2')" oncomplete="hideload('2')"/>
+		<p:commandButton id="searchExperiments" value="Search" onclick="showload('3');checkWhichOnesAreCheckedSuperType();" oncomplete="hideload('3');enableInputs();" action="#{graphBean.searchDatabaseForExperiments}" update="sc:tab:tabdaa:restultabelexp"/>
+		
+		<h:commandButton id="downheat" value="Download as text" onclick="prepaertodownladlheat(1);" action="#{downloadBean.heattable}"/>
+		<h:commandButton id="downheat2" value="Download as text" onclick="prepaertodownladlheat(2);" action="#{downloadBean.heattable}"/>
+		
+		<h:commandButton onclick="this.form.target='_blank'" onblur="this.form.target='_self'" id="corrcalc" value="Corr test" action="#{corrBean.calcorr}"/>
+	
+		<p:commandButton id="changetabs" value="changeselector" update="sc:tab:acord"/>
+		<p:commandButton id="changetabs2" value="changeselector" update="sc:tab:tabdaa:brow"/>
+		
+		<p:commandButton id="changetabsforexemple" onclick="document.getElementById('sc:tab:platselect').options[0].selected = true;" value="changeselector" oncomplete="example();" update="sc:tab:acord"/>
+	</div>
+	<br/>
+	
+	<div style="background-color: #FFFFFF;">
+	
+		<table cellpadding="0" cellspacing="0" border="0" width="100%">
+		
+			<tr>
+				<td valign="bottom" width="100%" style="padding-left: 30px;padding-bottom: 10px;padding-top:10px">
+					<a href="http://stemmapper.sysbiolab.eu" target="sysbiolab">
+						<img src="./images/stemmapper.png" width="250" alt="sysbiolab-logo" border="0"/>
+					</a>
+				</td>
+            	<td valign="bottom" style="padding-right:40px;padding-bottom:10px">
+            		<a href="http://www.sysbiolab.eu" target="sysbiolab">
+						<img src="./images/sysbiolablogo.png" width="250" alt="sysbiolab-logo" border="0"/>
+					</a>
+            	</td>
+        	</tr>
+		</table>
+	
+		
+	</div>
+				
+	<p:tabView id="tab" widgetVar="tabPanelWidget" style="border:none;" activeIndex="#{graphBean.activeIndex}">
+	
+		<p:tab id="tabH" title="Welcome">
+			<img src="./images/stemmapper.png" style="width: 50%;"/>
+			<h1>Welcome to StemMapper</h1>
+		
+			<p>StemMapper is a manually curated database containing gene expression data for different lineages of human and mouse Stem Cells (SCs).</p> 
+			<p>It features an intuitive interface for visual comparison of gene expression across different SC types.</p>
+			<p>Users may also submit their own gene expression samples (.CEL files) to compare individual results with previously published data.</p>
+			<p>Navigate to the Analysis tab to start using StemMapper, or visit the Help tab for detailed instructions.</p>
+			<p>Alternatively, you can follow the video tutorial below, which presents an exemplary use of StemMapper.</p>
+			<p>
+				<object type='application/x-shockwave-flash' style='width:500px; height:300px;' data='https://www.youtube.com/v/NG6Hpd-UbEk'>
+					<param name1='movie' value='https://www.youtube.com/v/NG6Hpd-UbEk' />
+				</object>			
+			</p>
+			<a target="_blank" href="https://academic.oup.com/nar/article-lookup/doi/10.1093/nar/gkx921">
+				<b>StemMapper is described in the Nucleic Acids Research Web Server Issue.</b>
+			</a>
+		</p:tab>
+	
+		<p:tab id="tab1" title="Analysis" >
+			<div id="loading-image" style="position:absolute; border:1px;solid;top:35%;left:25%;display:none"><img src="./images/progress.gif" /></div>
+			<p:outputPanel id="inputpanel" >
+				
+				<div id="part1">
+					<h3>1. Select StemMapper Datasets
+						&nbsp;&nbsp;
+						<a href='#!' onclick="toggledisplay('teshiden1');" title="Select cell lineage"><img src="./images/qmark.png" width="15" alt="sysbiolab-logo" border="0"/></a>
+					</h3>
+			
+					<div id="teshiden1" class="helpdiv" style="display: none;">
+						The user must select the desired cell lineage(s) to proceed with the analysis. Only the selected cell lineage(s) 
+						will be displayed in the Heatmap and PCA plots.<br/>
+						Please note that for the PCA analysis at least three samples (the numbers inside brackets next to each 
+						lineage name) must be selected.<br/>
+					</div>
+					
+					
+					
+					<b>Platform:</b>
+					<h:selectOneMenu id="platselect" value="#{graphBean.platform}" onchange="resettoggle();document.getElementById('sc:changetabs').click();">
+   						<f:selectItem itemValue="mouse4302" itemLabel="Affymetrix Mouse Genome 430 2.0 Array" />
+   						<f:selectItem itemValue="hgu133plus2" itemLabel="Affymetrix Human Genome U133 Plus 2.0 Array" />
+					</h:selectOneMenu>
+					
+					<br/>
+					<br/>
+					
+					
+					<label><input type="checkbox" id="AllSelect" class="checktosave" value="All" onclick="checkWhichOnesAreCheckedMaster('AllSelect', 'checkers');disalbeIfEmpty();"><b>Select All</b></input></label>
+					<br/>
+					<input type="button" value="Expand/Collapse" onclick="toggleAccordion();"/>
+					<br/>
+					<br/>
+					
+					<p:accordionPanel widgetVar="accordionWidget" id="acord" activeIndex="null" multiple="true" value="#{graphBean.dataTypes}" var="supertype">
+						<p:tab title="#{supertype[0][0][0]}">
+							
+							
+							<ui:fragment rendered = "#{supertype[3][0][0] == 'All' ? 'true': 'false'}">
+								<label><input type="checkbox" id="master#{supertype[4][0][0]}" value="All" class="checktosave checkers" onclick="unCheckPrime('AllSelect');checkWhichOnesAreCheckedMaster('master#{supertype[4][0][0]}', 'sub#{supertype[4][0][0]}');disalbeIfEmpty();"><b>All</b></input></label>
+								<br/>
+							</ui:fragment>
+							
+							<ui:repeat var="type" value="#{supertype[1]}">
+							
+								<ui:fragment rendered = "#{type[3] == 'classcheck' ? 'true': 'false'}">
+									<label><input type="checkbox" id="prime_class_#{supertype[4][0][0]}_#{type[4]}" value="All" class="checktosave checkers sub#{supertype[4][0][0]}" onclick="unCheckPrime('AllSelect');checkWhichOnesAreCheckedMaster('prime_class_#{supertype[4][0][0]}_#{type[4]}', 'class_#{supertype[4][0][0]}_#{type[4]}');disalbeIfEmpty();"><b>#{type[0]}</b></input></label>
+								</ui:fragment>
+							
+								<ui:fragment rendered = "#{type[3] == 'classcheck' ? 'false': 'true'}">
+									<label><input type="checkbox" id="chk#{type[1]}" class="countit class_#{supertype[4][0][0]}_#{type[3]} checktosave setType sub#{supertype[4][0][0]} checkers" value="#{type[0]}!#{type[2]}" onclick="unCheckPrime('AllSelect');unCheckPrime('master#{supertype[4][0][0]}');unCheckPrime('prime_class_#{supertype[4][0][0]}_#{type[3]}');checkWhichOnesAreChecked();disalbeIfEmpty();">#{type[0]} (#{type[2]})</input></label>
+								</ui:fragment>
+							
+							
+							
+								
+								<br/>
+							</ui:repeat>
+						</p:tab>
+					</p:accordionPanel>
+					
+					<br/>
+					<br/>
+ 					<br/>
+ 					<br/>
+				</div>
+				
+				<div id="part2">
+					<h3>2. Select Marker Genes
+						&nbsp;&nbsp;
+						 <a href='#!' onclick="toggledisplay('teshiden2');" title="Select cell lineage marker genes"><img src="./images/qmark.png" width="15" alt="sysbiolab-logo" border="0"/></a></h3>
+					
+			
+						<div id="teshiden2" class="helpdiv" style="display: none;">
+							The user can select one (or multiple) suggested group(s) of SC marker genes 
+							(information retrieved from 
+							<a target="_blank" href='https://discovery.lifemapsc.com/in-vivo-development/organ-tissues'>LifeMap Discovery</a>).
+							The list of corresponding marker genes will be automatically loaded and displayed in the input box to the right. 
+							Please note that only the selected genes will be shown on the Heatmap and PCA plot calculations.<br/>
+						</div>
+					<!-- 
+					<h:selectOneRadio id="selct" layout="pageDirection" onchange="checkradios();disalbeIfEmpty();">
+   						<f:selectItem itemValue="set1" itemLabel="B cell progenitor"/>
+   						<f:selectItem itemValue="set8" itemLabel="Brain dorsal subventricular" />
+   						<f:selectItem itemValue="set9" itemLabel="Brain lateral subventricular" />
+   						<f:selectItem itemValue="set17" itemLabel="Cardiac progenitors" />
+   						<f:selectItem itemValue="set2" itemLabel="Common lymphoid progenitor" />
+   						<f:selectItem itemValue="set6" itemLabel="Common myeloid progenitor" />
+   						<f:selectItem itemValue="set13" itemLabel="Ectoderm" />
+   						<f:selectItem itemValue="set14" itemLabel="Endoderm" />
+   						<f:selectItem itemValue="set3" itemLabel="Granulocyte/macrophage progenitor" />
+   						<f:selectItem itemValue="set5" itemLabel="Haematopoietic stem cells" />
+   						<f:selectItem itemValue="set12" itemLabel="Hair Follicle SC" />
+   						<f:selectItem itemValue="set11" itemLabel="Hepatic stem cells" />
+   						<f:selectItem itemValue="set4" itemLabel="Megakaryocyte/erythroid progenitor" />
+   						<f:selectItem itemValue="set16" itemLabel="Mesenchymal stem cells" />
+   						<f:selectItem itemValue="set15" itemLabel="Mesoderm" />
+   						<f:selectItem itemValue="set7" itemLabel="Neural progenitor" />
+   						<f:selectItem itemValue="set10" itemLabel="Neural stem cells" />
+					</h:selectOneRadio>
+					 -->
+					
+					
+					<label><input type="checkbox" id="mrez" value="Select All" onclick="checkWhichOnesAreCheckedMaster('mrez', 'rez');toggletext(['Afp','CD10','Cd13','CD133','Cd200','Cd33','Cd38','Cd43','CD71','Cebpa','Dbx1','Dbx2','Ebf1','Emx1','Emx2','Eng','Flk1','Foxa2','Foxa3','Foxg1','Gata1','Gata2','Gata3','Gata4','Gfap','Gfi1','Gli1','Gpc3','H19','Icam1','Ikzf1','Irx3','Itgam','Kit','Krt14','Krt15','Ly6d','Mesp1','Mesp2','Myb','Ncam','NES1','Nfe2','Nkx2-5','Nodal','Nt5e','Pax6','Ptprc','Runx1','Smad2','Sox1','Sox2','Sox3','Sox9','Sox17','T','Tal1','Tdgf1','Thy1'], 'mrez');"><b>Select All</b></input></label><br/>
+					<br/>
+					<label><input type="checkbox" id="rez1" class="rez" onclick="toggletext(['Ly6d','CD10','Cd43'], 'rez1');">Blood :: B cell progenitor</input></label><br/>
+					<label><input type="checkbox" id="rez5" class="rez" onclick="toggletext(['Ebf1','Gata3','Gfi1','Ikzf1','Myb'], 'rez5');">Blood :: Common lymphoid progenitor</input></label><br/>
+					<label><input type="checkbox" id="rez7" class="rez" onclick="toggletext(['Cebpa','Gata1','Nfe2'], 'rez7');">Blood :: Common myeloid progenitor</input></label><br/>
+					<label><input type="checkbox" id="rez10" class="rez" onclick="toggletext(['Cd13','Cd33','Cd38','Icam1','Itgam'], 'rez10');">Blood :: Granulocyte/macrophage progenitor</input></label><br/>
+					<label><input type="checkbox" id="rez11" class="rez" onclick="toggletext(['CD133','Gata2','Runx1','Tal1'], 'rez11');">Blood :: Haematopoietic stem cells</input></label><br/>
+					<label><input type="checkbox" id="rez14" class="rez" onclick="toggletext(['CD71','Cd38','Kit','Ptprc'], 'rez14');">Blood :: Megakaryocyte/erythroid progenitor</input></label><br/>
+					<label><input type="checkbox" id="rez8" class="rez" onclick="toggletext(['Pax6','Sox1','Sox2'], 'rez8');">Germ Layer :: Ectoderm</input></label><br/>
+					<label><input type="checkbox" id="rez9" class="rez" onclick="toggletext(['Afp','Foxa2','Foxa3','Smad2','Sox17'], 'rez9');">Germ Layer :: Endoderm</input></label><br/>
+					<label><input type="checkbox" id="rez16" class="rez" onclick="toggletext(['Mesp1','Nodal','T','Tdgf1'], 'rez16');">Germ Layer :: Mesoderm</input></label><br/>
+					<label><input type="checkbox" id="rez12" class="rez" onclick="toggletext(['Cd200','Krt14','Krt15'], 'rez12');">Hair :: Hair Follicle SC</input></label><br/>
+					<label><input type="checkbox" id="rez4" class="rez" onclick="toggletext(['Gata4','Flk1','Mesp1','Mesp2','Nkx2-5'], 'rez4');">Heart :: Cardiac progenitors</input></label><br/>
+					<label><input type="checkbox" id="rez13" class="rez" onclick="toggletext(['Afp','Gpc3','H19'], 'rez13');">Liver :: Hepatic stem cells</input></label><br/>
+					<label><input type="checkbox" id="rez15" class="rez" onclick="toggletext(['Eng','Nt5e','Thy1'], 'rez15');">Mesenchyme :: Mesenchymal stem cells</input></label><br/>
+					<label><input type="checkbox" id="rez2" class="rez" onclick="toggletext(['Emx1','Emx2','Foxg1'], 'rez2');">Neural :: Brain dorsal subventricular</input></label><br/>
+					<label><input type="checkbox" id="rez3" class="rez" onclick="toggletext(['Ncam','Gli1','Gfap'], 'rez3');">Neural :: Brain lateral subventricular</input></label><br/>
+					<label><input type="checkbox" id="rez17" class="rez" onclick="toggletext(['Dbx1','Dbx2','Irx3'], 'rez17');">Neural :: Neural progenitor</input></label><br/>
+					<label><input type="checkbox" id="rez18" class="rez" onclick="toggletext(['NES1','Sox1','Sox3','Sox9'], 'rez18');">Neural :: Neural stem cells</input></label><br/>
+					
+				</div>
+				
+				<div id="part3">
+				
+					<div class="subpart3">
+						<h3>3. Add Genes of Interest
+							&nbsp;&nbsp;
+							<a href='#!' onclick="toggledisplay('teshiden3');" title="Add additional cell lineage marker genes"><img src="./images/qmark.png" width="15" alt="sysbiolab-logo" border="0"/></a>
+						</h3>
+			
+						<div id="teshiden3" class="helpdiv" style="display: none;">
+							The user can add (or remove) genes from the gene marker list by: (i) adding gene names directly to the text box, 
+							or (ii) searching for individual gene names from the suggestion box below, followed by pressing the "Add Gene" 
+							button.<br/>
+							Please note that for the PC analysis ate least two valid gene names or Entrez ids must be input.<br/>
+							(Max 100 genes)<br/>
+						</div>
+						
+						<h:inputTextarea id="searchText" rows="8" cols="34" onkeyup="disalbeIfEmpty()" value="#{graphBean.searchData}" style="font-family:Trebuchet MS;font-size:0.8em;background-color:#E4E5E6"></h:inputTextarea>
+ 						<br/>
+						<input type="button" value="Clear" onclick="document.getElementById('sc:tab:searchText').value = '';$('.shutdownit').attr('disabled', true);"/>
+						<input type="button" value="Example" onclick="document.getElementById('sc:changetabsforexemple').click();"/>
+						<br/>
+						<br/>
+						<p:autoComplete id="newEntry" dropdown="false" forceSelection="true" completeMethod="#{graphBean.completeText}" styleClass="over"/>
+						<br/>
+ 						<input type="button" value="Add Gene" onclick="insertNewMarker();"/>
+ 						<br/>
+					</div>
+ 					<div class="subpart3">
+ 						<h3>4. Analysis 
+ 							&nbsp;&nbsp;
+		 					<a href='#!' onclick="toggledisplay('teshiden4');" title="Submit query"><img src="./images/qmark.png" width="15" alt="sysbiolab-logo" border="0"/></a>				
+ 						</h3>
+						<div id="teshiden4" class="helpdiv" style="display: none;">
+							Pressing the "Submit" button will query the database and proceed with the analysis. 
+							Two tabs will be created: "Heatmap" and "PCA Plot", containing the corresponding analyses.<br/>
+							Additionally, the user can visualize and compare its own gene-expression data with previously 
+							published results by uploading a .CEL file which will be processed and analysed together 
+							with the selected datasets. Please note that, at the moment, only data from Affymetrix 
+							Mouse Genome 430 2.0 Arrays and Affymetrix Human Genome U133 Plus 2.0 Arrays are supported.<br/>
+						</div>
+						<input type="button" disabled="disabled" id="noinput" class="shutdownit" onclick="setMarkersAndProcess()" value="Submit"/>
+						<input type="button" disabled="disabled" id="uploadb" class="shutdownit" onclick="setMarkersAndUpload()" value="Upload CEL file"/>
+ 						<br/>
+	 					<ui:fragment rendered = "#{graphBean.showNotEnogthGenes}">
+ 							Please submit at least two genes.
+ 						</ui:fragment>
+ 					
+ 						<ui:fragment rendered = "#{graphBean.showNoGeneMatches}">
+ 							Less than two of the input genes where found in the database, please submit at least two genes.
+ 						</ui:fragment>
+ 					
+ 						<ui:fragment rendered = "#{graphBean.showNormalizationError}">
+ 							There was an error during the normalization of the uploaded file, please verify if you selected the correct platform or if your file is corrupted.
+ 						</ui:fragment>
+ 						<br/>
+ 					</div>
+ 					<br/>
+ 					<br/>
+ 					<br/>
+ 					<br/>
+					<br/>
+					<br/>
+ 					<br/>
+ 					
+				</div>
+			</p:outputPanel>
+		</p:tab>
+
+		<p:tab id="tab4" title="Heatmaps" rendered="#{graphBean.showResults}">
+			<p:tabView id="tada" style="border:none;">
+				<p:tab id="tada1" title="Normalized Expression">
+					<a href="#linktocorr"><b>Calculate correlation</b></a>
+					<h:panelGrid columns="2" cellpadding="10">
+						<div id="heatmapdiv"></div>
+					</h:panelGrid>
+					<br/>
+					<p>
+						<a href='#!' onclick="toggledisplay('teshiden5');" title="The user can access gene and sample information by interacting with the Heatmap"><img src="./images/qmark.png" width="15" alt="sysbiolab-logo" border="0"/></a>
+					</p>
+					<div id="teshiden5" class="helpdiv" style="display: none;">
+						The user can access gene and sample information by interacting with the Heatmap:<br/>
+						1. Click anywhere on the Heatmap to obtain detailed information related to the selected 
+						gene's expression: Median Expression, PEM (Preferential Expression Measure - 
+						describes the expression of a gene in a given tissue in relation to its average 
+						expression across all tissues), Minimum and Maximum expression, only for the analysed SC 
+						lineages.<br/>
+						2. Click on the leaves of the dendrogram to obtain details about the data corresponding 
+						to the selected sample. A brief description of the sample is provided, together with the 
+						links from GEO, and the possibility to download (in tab separated format) the expression 
+						data for all genes from the selected sample.<br/>				
+					</div>
+					<br/>
+					<ui:fragment rendered = "#{graphBean.truncatethedata}">
+						More than 100 genes were input, the querry was automatically truncat.
+						<br/>
+						<br/>
+					</ui:fragment>
+					<ui:fragment rendered = "#{graphBean.unfound == '' ? 'false': 'true'}">
+						#{graphBean.unfound}
+						<br/>
+						<br/>
+					</ui:fragment>
+					<input type="button" value="Download as text file" id="dheat" onclick="document.getElementById('sc:downheat').click();"/>
+					<table>
+						<ui:repeat var="ttc" value="#{graphBean.typeToColor}">
+							<ui:fragment rendered = "#{ttc[1] == 'nill' ? 'false': 'true'}">
+								<tr>
+									<td>&nbsp;&nbsp;&nbsp;#{ttc[0]}</td>
+									<td style='color:#{ttc[1]};background-color:#{ttc[1]}'>1</td>
+								</tr>
+							</ui:fragment>		
+							<ui:fragment rendered = "#{ttc[1] == 'nill' ? 'true': 'false'}">
+								<tr>
+									<td><b>#{ttc[0]}</b></td>
+									<td></td>
+								</tr>
+							</ui:fragment>
+					</ui:repeat>
+					</table>
+				</p:tab>
+				
+				<p:tab id="tada2" title="Percentil Expression">
+					<a href="#linktocorr"><b>Calculate correlation</b></a>
+					<h:panelGrid columns="2" cellpadding="10">
+						<div id="heatmapdivq"></div>
+					</h:panelGrid>
+					<br/>
+					<p>
+						<a href='#!' onclick="toggledisplay('teshiden8');" title="The user can access gene and sample information by interacting with the Heatmap"><img src="./images/qmark.png" width="15" alt="sysbiolab-logo" border="0"/></a>
+					</p>
+					<div id="teshiden8" class="helpdiv" style="display: none;">
+						The user can access gene and sample information by interacting with the Heatmap:<br/>
+						1. Click anywhere on the Heatmap to obtain detailed information related to the selected 
+						gene's expression: Median Expression, PEM (Preferential Expression Measure - 
+						describes the expression of a gene in a given tissue in relation to its average 
+						expression across all tissues), Minimum and Maximum expression, only for the analysed SC 
+						lineages.<br/>
+						2. Click on the leaves of the dendrogram to obtain details about the data corresponding 
+						to the selected sample. A brief description of the sample is provided, together with the 
+						links from GEO, and the possibility to download (in tab separated format) the expression 
+						data for all genes from the selected sample.<br/>				
+					</div>
+					<br/>
+					<ui:fragment rendered = "#{graphBean.truncatethedata}">
+						More than 100 genes were input, the querry was automatically truncat.
+						<br/>
+						<br/>
+					</ui:fragment>
+					<ui:fragment rendered = "#{graphBean.unfound == '' ? 'false': 'true'}">
+						#{graphBean.unfound}
+						<br/>
+						<br/>
+					</ui:fragment>
+					<input type="button" value="Download as text file" id="dheat" onclick="document.getElementById('sc:downheat2').click();"/>
+					<table>
+						<ui:repeat var="ttc" value="#{graphBean.typeToColor}">
+							<ui:fragment rendered = "#{ttc[1] == 'nill' ? 'false': 'true'}">
+								<tr>
+									<td>&nbsp;&nbsp;&nbsp;#{ttc[0]}</td>
+									<td style='color:#{ttc[1]};background-color:#{ttc[1]}'>1</td>
+								</tr>
+							</ui:fragment>
+							<ui:fragment rendered = "#{ttc[1] == 'nill' ? 'true': 'false'}">
+								<tr>
+									<td><b>#{ttc[0]}</b></td>
+									<td></td>
+								</tr>
+							</ui:fragment>
+						</ui:repeat>
+					</table>
+				</p:tab>
+			</p:tabView>
+			<br/>
+			<br/>
+			
+		
+			<span id="linktocorr"></span>
+			<p>
+				<b>Calculate correlation</b>
+				&nbsp;&nbsp;
+				<a href='#!' onclick="toggledisplay('teshiden6');" title="The Pearson correlation is used"><img src="./images/qmark.png" width="15" alt="sysbiolab-logo" border="0"/></a>
+			</p>
+			<div id="teshiden6" class="helpdiv" style="display: none;">
+				Calculates the Pearson correlation between the expression values of the selected 
+				gene and the expression values for all other genes in the database.
+			</div>
+			<p>
+				Please note that this calculation might take a few minutes. The results will be shown in a new 
+				browser tab/window. Thank you for your patience.
+			</p>
+			
+			<ui:repeat var="mark" value="#{graphBean.buttonsforcorr}">
+				<br/>
+				<input type="button" id="graphb" onclick="corrstart('#{mark[1]}','#{mark[0]}')" value="#{mark[0]} correlated genes"/>
+			</ui:repeat>
+		</p:tab>
+	
+		<p:tab id="tab3" title="PCA Plot" rendered="#{graphBean.showResults}">
+			<div id="pca1b">
+				<h:panelGrid columns="2" cellpadding="10">
+					<div id="pcaplotdiv"></div>
+				</h:panelGrid>
+				<p>
+					<a href='#!' onclick="toggledisplay('teshiden7');" title="The user can access gene and sample information by interacting with the PCA plot"><img src="./images/qmark.png" width="15" alt="sysbiolab-logo" border="0"/></a>
+				</p>
+				<div id="teshiden7" class="helpdiv" style="display: none;">				
+					The user can access gene and sample information by interacting with the PCA plot:<br/>
+					1. Hovering over the points on the plot displays information related to that particular sample and the PC1,PC2 coordinate values.<br/>
+					2. Clicking on a particular point shows the details about the data corresponding to the selected sample. A brief description of 
+					the sample is provided, together with the links from GEO, and the possibility to download (in tab separated format) the 
+					expression data for all genes from the selected sample.<br/>
+					<br/>
+					Additionally, the plot can be colored according to different properties of the experiments/samples (e.g. by SC type; Tissue 
+					of origin; Treatment conditions; etc). The plot can be saved as a .png file.<br/>
+				</div>
+				<h4>Color by</h4>
+				<input type="button" id="graphb" onclick="switchcolor(2)" value="Cell Type"/>
+				<input type="button" id="grapha" onclick="switchcolor(5)" value="Cell Type (alternative)"/>
+				<input type="button" id="graphs" onclick="switchcolor(6)" value="Tissue of origin"/>
+				<input type="button" id="graphs" onclick="switchcolor(8)" value="Differentiation status"/>
+				<input type="button" id="graphc" onclick="switchcolor(4)" value="Wild-type/Treated"/>
+				<input type="button" id="grapht" onclick="switchcolor(3)" value="Treatment type"/>
+				<input type="button" id="grapht" onclick="switchcolor(9)" value="Surface markers"/>
+			</div>
+			<div id="pca2b">
+				<br/>
+				<table id="letab">
+					<ui:repeat var="ttc" value="#{graphBean.typeToColor}">
+						
+						
+						<ui:fragment rendered = "#{ttc[1] == 'nill' ? 'false': 'true'}">
+							<tr>
+								<td>&nbsp;&nbsp;&nbsp;#{ttc[0]}</td>
+								<td style='color:#{ttc[1]};background-color:#{ttc[1]}'>1</td>
+							</tr>
+						</ui:fragment>
+				
+				
+						<ui:fragment rendered = "#{ttc[1] == 'nill' ? 'true': 'false'}">
+							<tr>
+								<td><b>#{ttc[0]}</b></td>
+								<td></td>
+							</tr>
+						</ui:fragment>
+						
+						
+						
+						
+					</ui:repeat>
+				</table>
+			</div>
+		</p:tab>
+		
+		<p:tab id="tab-2" title="Dataset List" rendered="false">
+		
+			<ui:repeat var="smn" value="#{graphBean.sampleNIds}">
+			
+				<ui:fragment rendered = "#{smn[1] == 'super' ? 'true': 'false'}">
+					<br/>
+					<h2 style="padding:0px;margin:0px;">#{smn[0]}</h2>
+				</ui:fragment>
+			
+				<ui:fragment rendered = "#{smn[1] == 'type' ? 'true': 'false'}">
+					<br/>
+					<h3 style="padding:0px;margin:0px">#{smn[0]}</h3>
+				</ui:fragment>
+			
+			
+				<ui:fragment rendered = "#{smn[1] == 'super' or smn[1] == 'type' ? 'false': 'true'}">
+					<h:outputLink value="sampledata.jsf?p=#{smn[1]}" target="new" style="padding-left:1%;padding-right:6%">
+						#{smn[0]}
+					</h:outputLink>
+					<br/>
+				</ui:fragment>
+				
+			</ui:repeat>
+		
+		</p:tab>
+		
+		
+		<p:tab id="tab-1" title="Search for gene" rendered="false">
+		
+			
+			<div id="loading-image2" style="position:absolute; border:1px;solid;top:35%;left:25%;display:none"><img src="./images/progress.gif" /></div>
+		
+			<input type="button" id="searchg" onclick="document.getElementById('sc:search').click();" value="Search"/>
+			
+			<br/>
+			<p:outputPanel id="restultabel">
+				<table id="serdtab">
+					<ui:repeat var="srd" value="#{graphBean.searchDetails}">
+						<tr>
+							<td>
+							
+								<h:outputLink target="_blank" value="http://www.ncbi.nlm.nih.gov/gene/#{srd[0]}" style="color:blue">
+									#{srd[0]}
+								</h:outputLink>
+							
+							</td>
+							<td>#{srd[1]}</td>
+						</tr>
+					</ui:repeat>
+				</table>
+				<br/>
+				<br/>
+				<table id="sermtab">
+					<ui:repeat var="srr" value="#{graphBean.searchResults}">
+						<tr>
+							<ui:repeat var="sr" value="#{srr}">
+								<td>#{sr}</td>
+							</ui:repeat>
+						</tr>
+					</ui:repeat>
+				</table>
+			</p:outputPanel>
+		
+		<!-- 
+		
+			Simple search add filter by types, supertypes and samples. Maybe a serach by probe.
+		
+		 -->
+		
+		
+		</p:tab>
+		
+		<p:tab id="tab-3" title="Browser/Download Data">
+			<div id="loading-image3" style="position:absolute; border:1px;solid;top:35%;left:25%;display:none"><img src="./images/progress.gif" /></div>
+			<p:tabView id="tabdaa" style="border:none;">
+				<p:tab id="tabda1" title="Download selected data" rendered="#{graphBean.showResults}">
+					<b>Download data used for the analyses</b>
+					<br/>
+					<br/>
+					<table id="resultsearch">
+						<thead>
+							<tr class="rsearch">
+								<th>GEO Experiment ID</th>
+								<th>Tissue</th>
+								<th>Cell lineage</th>
+							</tr>
+						</thead>
+				
+						<tbody>
+						<ui:repeat var="sor" value="#{graphBean.sources}">
+							<tr>
+								<td>
+									<h:outputLink value="experimentdata.jsf?p=#{sor[0]}&amp;v=#{graphBean.justthis}" target="new">#{sor[0]}</h:outputLink>
+								</td>
+								<td>
+									#{sor[2]}
+								</td>
+								<td>
+									#{sor[1]}
+								</td>
+							</tr>
+						</ui:repeat>
+						</tbody>
+					</table>
+				</p:tab>
+				<p:tab id="tabda2" title="Browse all data">
+					<b>Platform:</b>
+					<h:selectOneMenu id="platselect2" value="#{graphBean.platform2}" onchange="document.getElementById('sc:changetabs2').click();">
+   						<f:selectItem itemValue="mouse4302" itemLabel="Affymetrix Mouse Genome 430 2.0 Array" />
+   						<f:selectItem itemValue="hgu133plus2" itemLabel="Affymetrix Human Genome U133 Plus 2.0 Array" />
+					</h:selectOneMenu>
+					<br/>
+					<br/>
+					
+					<p:outputPanel id="brow">
+						
+						<label><input type="checkbox" class="masterchecker" value="All" checked="checked" id="masterall" onclick="checkWhichOnesAreCheckedMaster('masterall', 'belowall')"><b>Select all</b></input></label>
+						<br/>
+						<br/>
+						
+						<ui:repeat var="supertype" value="#{graphBean.dataTypes2}">
+							<label><input type="checkbox" id="esuper#{supertype[2][0][0]}" class="supertype belowall" value="#{supertype[2][0][0]}" checked="checked" onclick="checkWhichOnesAreCheckedMaster('esuper#{supertype[2][0][0]}', 'esub#{supertype[2][0][0]}');unCheckPrime('masterall');"><b>#{supertype[0][0][0]}</b></input></label>
+							<br/>
+							
+							<ui:repeat var="type" value="#{supertype[1]}">
+								<label><input type="checkbox" class="esub#{supertype[2][0][0]} belowall" value="#{type[0]}" onclick="unCheckPrime('esuper#{supertype[2][0][0]}');unCheckPrime('masterall');" checked="checked">#{type[0]}</input></label>
+								<br/>
+							</ui:repeat>
+							<br/>
+						</ui:repeat>
+						<br/>
+						<input type="button" value="Search" id="test" onclick="document.getElementById('sc:searchExperiments').click();"/>
+					</p:outputPanel>
+					<br/>
+					<br/>
+					
+					<p:outputPanel id="restultabelexp">
+						<table id="exptab">
+						<ui:repeat var="srd" value="#{graphBean.searchResults}">
+							<tr>
+								<td>
+									<h:outputLink value="experimentdata.jsf?p=#{srd[0]}#{graphBean.searchResultsExtra}" target="new" style="padding-left:1%;padding-right:6%">
+										#{srd[1]}
+									</h:outputLink>
+								</td>
+							</tr>
+						</ui:repeat>
+					</table>
+					<br/>
+					<br/>
+					</p:outputPanel>
+					
+					
+				</p:tab>
+			</p:tabView>
+			
+			
+			
+		</p:tab>
+		
+		<p:tab id="tab-4" title="Help">
+			
+			
+			<div class="helppage">
+			
+			<h1>What is StemMapper ?</h1>
+		
+			<p>StemMapper is a manually curated database containing gene expression data for different lineages of Stem Cells (SCs). It features an intuitive interface 
+			for visual comparison of gene expression across different cell types. Users may also submit their own gene expression samples (.CEL files) to compare their 
+			results with previously published data.</p>
+			
+			<h1>Which data is included in StemMapper?</h1>
+			
+			<p>StemMapper currently holds over <b>798</b> mouse and <b>166</b> human transcriptomes, collected from NCBI’s Gene Expression Omnibus (GEO), 
+			representing a comprehensive coverage of expression profiles for <b>51</b> types of murine SCs, progenitor cells and their progeny as well as 
+			<b>19</b> types of human SCs, progenitor cells and their progeny(these numbers are being continuously updated as more data becomes available). 
+			Future versions of StemMapper will include additional transcriptomics platforms. 
+			Table with individual sample numbers can be found
+			<h:outputLink value="datatable.jsf" target="new">here</h:outputLink>.</p>
+			
+			<p>StemMapper is the culmination of stringent dataset selection and analysis to ensure including only high-quality data, i.e. only the datasets fulfilling: 
+			(i) our quality control filtering, and (ii) our stem-signature acceptance criteria based on the manual curation of the gene expression signatures for each 
+			individual stem cell type.</p>
+			
+			<p>For detailed information regarding each sample please visit the "Download Data".</p>
+			
+			<h1>Tutorial</h1>
+		
+			<h2>Supported Browsers</h2>
+		
+			<p>StemMapper supports the current release of Chrome and Firefox only, meaning that it was designed and optimized for these two browsers. 
+			Accordingly, we can not guarantee full functional behavior on other browsers.</p>
+		
+		
+			<h2>Synopsis</h2>
+		
+			<p>Navigate to the “Analysis” tab, where the user will be required to:</p>
+			<p>1. Select the cell lineages of interest (dataset(s) to query);</p>
+			<p>2. Select the marker genes to visualize (from the built-in marker gene lists grouped by cell type);</p>
+			<p>3. Optionally add more gene(s) of interest to the analysis.</p>
+			<p>4. Click “Analyse”.</p>
+			
+			<h2>Walkthrough Tutorial</h2>
+			
+			<p>For the purpose of this brief tutorial to demonstrate the usage and main features of StemMapper, we will analyse the gene expression of some cardiac 
+			marker genes and compare it to the expression of embryonic stem and cardiac related cells.</p>
+			
+			<h3>Step 1. Select StemMapper Datasets</h3>
+			
+			<p>We start by selecting the appropriate datasets, i.e. the cell lineages of interest, that we would like to visualize the gene expression values.</p>
+			
+			<p>To facilitate the selection, the datasets are grouped by transcriptomics platform, tissue of origin, named according to its cell lineage and state 
+			of differentiation. All data is deselected by default, so the user can easily select the desired datasets</p>
+			
+			<p>For this tutorial, we first select the platform <b>“Affymetrix Mouse Genome 430 2.0 Array”</b>, followed by selecting <b>“Cardiomyocytes”</b> 
+			and <b>“Cardiac progenitor cells”</b> from the <b>“Heart”</b> panel and the <b>“Embryonic stem cells”</b> from the <b>“Embryonic/Induced cells”</b> 
+			panel.</p>
+			
+			<img src="./images/tutorial-step1.png" width="700" alt="sysbiolab-logo"/>
+			
+			
+			<h3>Step 2. Select Marker Genes</h3>
+			
+			<p>
+			In this step the user will be required to either select a group of marker genes from StemMapper’s built-in lists (gene marker information 
+			retrieved from <h:outputLink value="https://discovery.lifemapsc.com/in-vivo-development/organ-tissues" target="new">LifeMap Discovery</h:outputLink>, 
+			or manually add genes of interest (see next step). By selecting any of these marker pre-sets, the list of corresponding marker genes will be 
+			automatically loaded and displayed in the input box.</p>
+			
+			<p>For this tutorial, we selected <b>“Heart::Cardiac progenitors”</b>.</p>
+			
+			<img src="./images/tutorial-step2.png" width="700" alt="sysbiolab-logo" border="0"/>
+			
+			
+			<h3>Step 3. Add Genes of Interest (optional)</h3>
+			
+			
+			<p>The user can choose not to include any pre-set marker genes in the analysis and manually introduce gene symbols corresponding to their genes of interest. 
+			Alternatively, the user can add (and remove) genes from the gene marker list by writing directly in the text box (or by searching gene names from the 
+			suggestion box below). <b>Please note</b> that it is necessary to input a minimum of two genes in order to perform the Principal Component Analysis (PCA). 
+			Gene names added are not case sensitive.</p>
+			<p>Additionally, the user can also upload to StemMapper its own dataset by uploading a cel file (.CEL) which will be processed and analysed together 
+			with the selected datasets. <b>Please note</b> that, at the moment, only data from Affymetrix Mouse Genome 430 2.0 Arrays and Affymetrix Human Genome U133 
+			Plus 2.0 Arrays are supported.</p>
+			
+			<p>For this tutorial, we added the following 2 gene names to the list of cardiac marker genes: <b>Isl1</b> and <b>Mef2c</b> pressing the <b>“Add Gene”</b> 
+			button after searching for each gene name.</p>
+			
+			<img src="./images/tutorial-step3.png" width="700" alt="sysbiolab-logo" border="0"/>
+			
+			<img src="./images/tutorial-step3.1.png" width="700" alt="sysbiolab-logo" border="0"/>
+			
+			<h3>Step 4. Analysis</h3>
+			
+			
+			<p>Database analysis will start after pressing the <b>“Submit”</b> button and two extra tabs will be created: <b>“Heatmaps”</b> and <b>“PCA Plot”</b>.</p>
+			
+			<p>By pressing the <b>“Submit”</b> button, we are automatically re-direct to the <b>“Heatmaps”</b> tab.</p>
+			
+			<img src="./images/tutorial-step4.png" width="700" alt="sysbiolab-logo" border="0"/>
+			
+			<h1>How to interpret the results?</h1>
+			
+			<p>Analysis results are displayed in two pages, each on an individual tab: <b>“Heatmaps”</b> and
+			<b>“PCA Plot”</b>, which can be accessed by clicking on the corresponding tabs.</p>
+			
+			<h2>HeatMap</h2>
+			<h3>Visualize and download data</h3>
+			
+			<p>The <b>“Heatmap”</b> tab contains two sub-tabs. <b>“Normalized expression”</b> tab shows a heatmap containing the expression values of the genes 
+			selected for the analysis and <b>“Percentile Expression”</b> tab displays a heatmap that contains information about quantile value/score
+			related to the gene expression on each sample. The cell lineages are displayed on the leaves of the dendrogram, colored by different 
+			cell lineage. Samples obtained from the same tissue use different shades of the same color.</p>
+			
+			
+			<p>By hovering the cursor over the leaves, the user can see the name of the sample, and by clicking it will open a new tab displaying 
+			the details about the data corresponding to the selected sample. A brief description of the sample is provided, together with GEO links, 
+			and the possibility to download (in tab separated format) the expression data for all genes from that sample. Similarly, by clicking on a 
+			particular gene track on the produced expression heatmap, creates a new window that lists additional information related to the selected 
+			gene's expression in the chosen SCs lineages.</p>
+			
+			<p>The heatmap created can be zoomed in/out using the options displayed above the plot. This figure can also be downloaded as a bitmap 
+			file (.png). The <b>“Download as text”</b> button allows the user to download a .txt file containing all normalized expression values 
+			used to construct the heatmap.</p>
+			
+			<img src="./images/tutorial-heatmap.png" width="700" alt="sysbiolab-logo" border="0"/>
+			
+			<p>In this tutorial, we obtained information about Mef2c gene expression by clicking its track on the heatmap.</p>
+			
+			<p>Gene information can be presented as lineage or tissue expression displaying relevant information, such as, Median Expression, 
+			PEM (Preferential Expression Measure - describes the expression of a gene in a given tissue in relation to its average expression 
+			across all tissues), Minimum and Maximum expression across experiments.</p>
+			
+			<img src="./images/heatmap2(1).png" width="700" alt="sysbiolab-logo" border="0"/>
+			
+			<p>Similarly, by clicking on the leaves of the dendrogram we obtain a new tab containing details about the GEO sample data present in 
+			the heatmap. A brief description of this sample is provided, together with the links from GEO, and we can download (in tab separated 
+			format) the expression data for all genes from the selected sample by clicking in the <b>“Download sample data”</b>.</p>
+			
+			<p>Additionally, we can click on the <b>“View Expression Values”</b> button in order to obtain all the gene expression values of the 
+			selected dataset.</p>
+			
+			<img src="./images/heatmap3(1).png" width="700" alt="sysbiolab-logo" border="0"/>
+			
+			<p>Going back to the heatmap page, we downloaded the heatmap’s normalized expression values by clicking on the 
+			<b>“Download as text”</b> button (see figure below), as text file (.txt).</p>
+			
+			<img src="./images/heatmap4.png" width="700" alt="sysbiolab-logo" border="0"/>
+			
+			<h2>Calculate gene correlation</h2>
+			
+			<p>Since a common task in transcriptomics is the identification of co-regulated genes, an option for correlation analysis is 
+			implemented in StemMapper. The calculation of the Pearson correlation between the expression values of a selected gene and the 
+			expression values for all other genes in the selected samples can be performed. A new window subsequently displays the calculated 
+			correlation coefficients and respective p-values (the columns can be ordered by clicking on the column header).</p>
+			
+			<p>In this tutorial, we clicked on the <b>“Mef2c (17260) correlated genes”</b> button, which opens a new tab with Pearson correlation 
+			values between the expression values of the selected gene and the expression values for all other genes in the queried database. 
+			Please note that this operation might take a few minutes. In the correlation analysis tab, we can download the results into a text file 
+			(.txt) by clicking the <b>“Download”</b> button.</p>
+			
+			<img src="./images/Correlation(1).png" width="700" alt="sysbiolab-logo" border="0"/>
+			
+			<h2>PCA Plot</h2>
+			<p>The <b>”PCA Plot”</b> tab displays the 
+			<h:outputLink value="https://en.wikipedia.org/wiki/Principal_component_analysis" target="new">Principal Component Analysis (PCA)</h:outputLink>
+			plot obtained by using the expression values of the genes selected by the user.</p>
+			
+			<p>The plot is interactive and samples can be colored according to different properties of the experiments/samples 
+			(e.g. by SC type; SC type (alternative); Tissue of origin; Differentiation status; Wild-type/treated; Treatment type; 
+			Surface markers). The plot can also be zoomed (in and out), or be adjusted 
+			according to the user preferences, or downloaded as a bitmap file (.png), by clicking the buttons above the plot.</p>
+			
+			<p>In the PCA plot it is possible to identify each sample by hovering the mouse pointer over the dots, which will display a simple 
+			hover-text with sample information.</p> 
+			
+			<p>Clicking in any of the dots will produce a pop-up window containing detailed information about that specific sample. Additionally, 
+			it is possible to view the expression values (<b>"View Expression Values"</b> button) or download them by using the
+			<b>“Download sample data”</b> button.</p>
+			
+			<p>In this tutorial, we first color-coded the plot by clicking on the <b>“SC type”</b> button to differentiate samples according to 
+			their lineage. Then, we hovered a point on the plot to display information related to that particular sample and the (PC1, PC2) 
+			coordinate values.</p>
+			
+			<p>By clicking on it, we obtain a new window displaying details about the data corresponding the sample. A brief description of 
+			the sample is provided, together with the links for GEO, and then we downloaded (in tab separated format) the expression data 
+			for all genes from the selected sample by clicking on the <b>“Download sample data”</b> button.</p>
+			
+			<img src="./images/PCA1(1).png" width="700" alt="sysbiolab-logo" border="0"/>
+			
+			<h1>Browse/Download Data</h1>
+			
+			<p>To obtain more information about the datasets and genes included in StemMapper, as well as download its curated data, the user can 
+			search the <b>"Browse/Download Data"</b> tab. This tab contains two sub-tabs: <b>“Download selected data”</b> tab will 
+			provide the user with all datasets that were used in the query and <b>“Browse all data”</b> tab that contains all data present in 
+			the database which the user can search and browse through. Additionally, the user can visualize the expression values by clicking 
+			on the <b>“View Expression Values”</b> button or can download them by clicking on the <b>“Download sample data”</b> button.</p>
+			
+			<p>For this tutorial, we first selected the platform <b>“Affymetrix Mouse Genome 430 2.0 Array”</b> and <b>“Cardiomyocytes”</b> 
+			from the list and clicked the <b>“Search”</b> button. The included curated datasets under the tag <b>“Cardiomyocytes”</b> 
+			are displayed under the <b>“search button”</b>. Next, we selected one of the GEO datasets (<b>“GSE5671”</b>) opening a new tab 
+			which displayed more information about the GEO experiment and the samples. Here we downloaded the data for all the samples in a 
+			text format file (.txt) by clicking on the <b>“Download table”</b> button. Additionally, we clicked on <b>“Download test matrix”</b> 
+			to retrieve an expression table that is suitable for parsing and load into R program.</p>
+			
+			<img src="./images/browse_data1.png" width="1100" alt="sysbiolab-logo" border="0"/>
+			
+			<h1>Video Tutorial</h1>
+			
+			<p>
+				<object type='application/x-shockwave-flash' style='width:500px; height:300px;' data='https://www.youtube.com/v/NG6Hpd-UbEk'>
+					<param name1='movie' value='https://www.youtube.com/v/NG6Hpd-UbEk' />
+				</object>
+				
+			</p>
+			
+			<h1>How can I report bugs and/or make suggestions?
+			</h1>
+			
+			<p>If you find a bug in our tool please contact us to the following e-mail address: jppinto at ualg dot pt
+			Additionally, we would be happy to hear your opinions, suggestions and comments about this resource. Please feel free to contact us.
+			Thank you.</p>
+			</div>
+		</p:tab>
+		
+		<p:tab id="tabt" title="About">
+		
+			<h1>Team</h1>
+	
+			<p>StemMapper was developed by the <a href="http://sysbiolab.eu/">Systems Biology and Bioinformatics Laboratory</a> at  
+			the <a href="https://www.ualg.pt/home/en">University of Algarve</a> and at the 
+			<a href="https://www.plymouth.ac.uk/staff/matthias-futschik">Plymouth University</a>.</p>
+		
+			<h2>Group Leader</h2>
+			<p><a href="http://w3.ualg.pt/~mfutschik/matthias.html">Matthias Futschik</a></p>
+		
+			<h2>Software Development</h2>
+			<p><a href="http://w3.ualg.pt/~mfutschik/jose.html">José Pedro Pinto</a></p>
+		
+			<h2>Data Curation &amp; Database Design</h2>
+			<p><a href="http://w3.ualg.pt/~mfutschik/rui.html">Rui Machado</a></p>
+			<p><a href="http://cbmr.ualg.pt/research/stemcelldevelop/jbraganca/">José Bragança</a></p>
+			<p><a href="http://w3.ualg.pt/~mfutschik/isabel/iduarte.html">Isabel Duarte</a></p>
+			<p><a href="http://w3.ualg.pt/~mfutschik/susana.html">Susana Machado</a></p>
+			<p><a href="http://w3.ualg.pt/~mfutschik/daniel.html">Daniel Oliveira</a></p>
+			<br/>
+			<h1>Contacts</h1>
+			<p><a href="mailto:jppinto@ualg.pt">José Pedro Pinto</a></p>
+			<p><a href="mailto:mfutschik@ualg.pt">Matthias E. Futschik</a></p>
+		
+		
+			<p><a href="http://cbmr.ualg.pt/">Center for Biomedical Research (CBMR)</a></p>
+			<p><a href="http://www.ccmar.ualg.pt/">Centre of Marine Sciences (CCMAR)</a></p>
+			<p><a href="https://www.plymouth.ac.uk/staff/matthias-futschik">Plymouth University (School of Biomedical &amp; Healthcare Sciences)</a></p>
+		
+			<p>Faculty of Sciences and Technology (building 8, room 3.12), Campus de Gambelas</p>
+
+			<p><a href="https://www.ualg.pt/home/en">University of Algarve</a></p>
+
+			<p>8005-139 Faro, Portugal</p>
+
+			<p>Phone: + 351 289 244 403 (extn. 7403)</p>
+			<p>Fax: +351 289 818 419</p>
+			
+		</p:tab>
+		
+		<p:tab id="tabn" title="News">
+		
+<b>31/07/2017</b> - Correlation Analysis included.
+<br/><br/>
+<b>12/07/2017</b> - Database update:<br/>
+Human datasets included.
+Intestinal, muscle, mesenchyme, mammary and olfactory mouse data added to the database.
+<br/><br/>
+<b>30/06/2017</b> - StemMapper's first major update:<br/>
+New data added to the database and new marker gene lists included.
+Deployment of new interface design.
+<br/><br/>
+<b>07/05/2017</b> - StemMapper's first public release.
+<br/><br/>
+<b>31/03/2017</b> - Finished mouse curation and QC for new data.
+<br/><br/>
+<b>16/12/2016</b> - Collect and add more mouse SC types/datasets.
+<br/><br/>
+<b>30/11/2016</b> - Local testing and request for features:<br/>
+Alternative colors for PCA.
+Heatmap clustering. 
+<br/><br/>
+<b>15/09/2016</b> - Alpha version of StemMapper.
+<br/><br/>
+<b>29/08/2016</b> - Finished testing of QC for first datasets.
+<br/><br/>
+<b>18/06/2016</b> - Manual curation of data complete.
+<br/><br/>
+<b>31/05/2016</b> - First mouse datasets collected.
+<br/><br/>
+<b>31/03/2016</b> - First StemMapper meeting - concept and overall design
+		
+		
+		
+		
+		
+		
+		
+		
+		</p:tab>
+		
+			
+		
+	</p:tabView>
+	
+
+</h:form>
+</h:body>
+</html>

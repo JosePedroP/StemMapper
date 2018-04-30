@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 31/ago/2017 12:20:35 by Hibernate Tools 4.0.1.Final -->
+<hibernate-mapping>
+    <class name="databaseAccess.Sample" table="sample" catalog="stemplotdbn">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="samplecondition" class="databaseAccess.Samplecondition" fetch="select">
+            <column name="samplecondition_id" />
+        </many-to-one>
+        <many-to-one name="sampletype" class="databaseAccess.Sampletype" fetch="select">
+            <column name="sampletype_id" />
+        </many-to-one>
+        <many-to-one name="organisms" class="databaseAccess.Organisms" fetch="select">
+            <column name="organims_id" not-null="true" />
+        </many-to-one>
+        <many-to-one name="sampletime" class="databaseAccess.Sampletime" fetch="select">
+            <column name="sampletime_id" />
+        </many-to-one>
+        <many-to-one name="experiment" class="databaseAccess.Experiment" fetch="select">
+            <column name="experiment_id" not-null="true" />
+        </many-to-one>
+        <property name="name" type="string">
+            <column name="name" length="45" not-null="true" />
+        </property>
+        <property name="source" type="string">
+            <column name="source" length="45" />
+        </property>
+        <property name="platform" type="string">
+            <column name="platform" length="80" not-null="true" />
+        </property>
+        <property name="wildtype" type="string">
+            <column name="wildtype" length="1" not-null="true" />
+        </property>
+        <property name="invivo" type="string">
+            <column name="invivo" length="1" not-null="true" />
+        </property>
+        <property name="purestem" type="string">
+            <column name="purestem" length="1" />
+        </property>
+        <property name="surfacemarkers" type="string">
+            <column name="surfacemarkers" />
+        </property>
+        <set name="samplekeywordses" table="samplekeywords" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="sample_id" not-null="true" />
+            </key>
+            <one-to-many class="databaseAccess.Samplekeywords" />
+        </set>
+        <set name="expressions" table="expression" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="sample_id" not-null="true" />
+            </key>
+            <one-to-many class="databaseAccess.Expression" />
+        </set>
+    </class>
+</hibernate-mapping>

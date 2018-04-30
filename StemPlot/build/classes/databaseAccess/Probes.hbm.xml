@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 28/mar/2017 18:11:50 by Hibernate Tools 4.0.1.Final -->
+<hibernate-mapping>
+    <class name="databaseAccess.Probes" table="probes" catalog="stemplotdbn">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="genes" class="databaseAccess.Genes" fetch="select">
+            <column name="genes_id" not-null="true" />
+        </many-to-one>
+        <property name="probe" type="string">
+            <column name="Probe" length="80" not-null="true" />
+        </property>
+        <property name="platform" type="string">
+            <column name="platform" length="45" />
+        </property>
+    </class>
+</hibernate-mapping>

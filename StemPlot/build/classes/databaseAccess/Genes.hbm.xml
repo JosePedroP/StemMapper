@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 24/jul/2017 17:41:59 by Hibernate Tools 4.0.1.Final -->
+<hibernate-mapping>
+    <class name="databaseAccess.Genes" table="genes" catalog="stemplotdbn">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="organisms" class="databaseAccess.Organisms" fetch="select">
+            <column name="organims_id" not-null="true" />
+        </many-to-one>
+        <property name="entrez" type="int">
+            <column name="entrez" not-null="true" />
+        </property>
+        <property name="genesymbol" type="string">
+            <column name="genesymbol" length="45" />
+        </property>
+        <set name="probeses" table="probes" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="genes_id" not-null="true" />
+            </key>
+            <one-to-many class="databaseAccess.Probes" />
+        </set>
+        <set name="genealiases" table="genealias" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="genes_id" not-null="true" />
+            </key>
+            <one-to-many class="databaseAccess.Genealias" />
+        </set>
+        <set name="expressions" table="expression" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="genes_id" not-null="true" />
+            </key>
+            <one-to-many class="databaseAccess.Expression" />
+        </set>
+    </class>
+</hibernate-mapping>

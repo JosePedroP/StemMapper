@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>StemMapper</title>
+	<script src="corr.js" type="text/javascript"/>
+	<link href="./css/SearchPageStyle.css" rel="stylesheet" type="text/css"/>
+
+</h:head>
+<h:body>
+	<h:form id="sc">
+		<h1 id="ti">Correlations with #{corrBean.corrMainGeneName}</h1>
+		<br/>
+		<h:commandButton id="giveMeATable" value="Download" onclick="predownload();" action="#{downloadBean.getTable}"/>
+		<br/>
+		<table id="gdata" class="sortable">
+			<thead>
+				<tr>
+					<th>Gene</th>
+					<th>Correlation</th>
+					<th>Nominal p-value</th>
+				</tr>
+			</thead>
+			<tbody>
+				<ui:repeat var="tab" value="#{corrBean.table}">
+					<tr>
+						<td>#{tab[2]} <h:outputLink value="https://www.ncbi.nlm.nih.gov/gene/#{tab[0]}" target="new" style="padding-left:1%;padding-right:6%">#{tab[0]}</h:outputLink>
+						</td>
+						<td>#{tab[1]}</td>
+						<td>#{tab[3]}</td>
+					</tr>
+				</ui:repeat>
+			</tbody>
+		</table>
+		<h:inputHidden value="#{downloadBean.inputVal}" id="inputval"/>
+		<h:inputHidden value="#{downloadBean.filename}" id="filename"/>
+		<h:inputHidden value="#{corrBean.corrMainGeneName}" id="title"/>
+	</h:form>
+</h:body>
+</html>

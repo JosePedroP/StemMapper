@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>StemMapper</title>
+	<script src="sampledata.js" type="text/javascript"/>
+	<link href="./css/SearchPageStyle.css" rel="stylesheet" type="text/css"/>
+
+</h:head>
+<h:body onload="startup()">
+
+<h:form id="sc">
+
+	<h1>Which data is included in StemMapper?</h1>
+	
+	<h2>Mus musculus</h2>
+	<table border="1">
+		<ui:repeat var="supertype" value="#{datatableBean.mouse}">
+			<tr>
+				<td><b>#{supertype[0][0][0]}</b></td>
+				<td></td>
+			</tr>
+			<ui:repeat var="type" value="#{supertype[1]}">
+				<ui:fragment rendered = "#{type[2] != '-1' ? 'true': 'false'}">
+					<tr>
+						<td>#{type[0]}</td>
+						<td>#{type[2]}</td>
+					</tr>
+				</ui:fragment>
+			</ui:repeat>
+		</ui:repeat>
+	</table>
+	
+	<h2>Homo sapiens</h2>
+	<table border="1">
+		<ui:repeat var="supertype" value="#{datatableBean.human}">
+			<tr>
+				<td><b>#{supertype[0][0][0]}</b></td>
+				<td></td>
+			</tr>
+			<ui:repeat var="type" value="#{supertype[1]}">
+				<ui:fragment rendered = "#{type[2] != '-1' ? 'true': 'false'}">
+					<tr>
+						<td>#{type[0]}</td>
+						<td>#{type[2]}</td>
+					</tr>
+				</ui:fragment>
+			</ui:repeat>
+		</ui:repeat>
+	</table>
+
+
+
+</h:form>
+</h:body>
+</html>

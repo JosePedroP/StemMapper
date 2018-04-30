@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 28/mar/2017 18:11:50 by Hibernate Tools 4.0.1.Final -->
+<hibernate-mapping>
+    <class name="databaseAccess.Experimentkeywords" table="experimentkeywords" catalog="stemplotdbn">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="experiment" class="databaseAccess.Experiment" fetch="select">
+            <column name="experiment_id" not-null="true" />
+        </many-to-one>
+        <many-to-one name="keywords" class="databaseAccess.Keywords" fetch="select">
+            <column name="keywords_id" not-null="true" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

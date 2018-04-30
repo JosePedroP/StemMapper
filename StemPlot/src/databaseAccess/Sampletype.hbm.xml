@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 30/ago/2017 20:52:35 by Hibernate Tools 4.0.1.Final -->
+<hibernate-mapping>
+    <class name="databaseAccess.Sampletype" table="sampletype" catalog="stemplotdbn">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="supertype" class="databaseAccess.Supertype" fetch="select">
+            <column name="supertype_id" />
+        </many-to-one>
+        <property name="type" type="string">
+            <column name="type" length="45" not-null="true" unique="true" />
+        </property>
+        <property name="class_" type="string">
+            <column name="class" length="45" />
+        </property>
+        <set name="samples" table="sample" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="sampletype_id" />
+            </key>
+            <one-to-many class="databaseAccess.Sample" />
+        </set>
+    </class>
+</hibernate-mapping>

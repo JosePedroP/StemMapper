@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>StemMapper</title>
+	<script src="sampledata.js" type="text/javascript"/>
+	<script src="toggledis.js" type="text/javascript"/>
+	<link href="./css/SearchPageStyle.css" rel="stylesheet" type="text/css"/>
+
+</h:head>
+<h:body onload="startup()">
+
+<h:form id="sc">
+	<p:outputPanel id="out1">
+	
+		<table border="1">
+			<tr>
+				<td>GEO Experiment</td>
+				<td>
+					<h:outputLink value="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=#{experimentDataBean.name}" target="new">
+						#{experimentDataBean.name}
+					</h:outputLink>
+				</td>
+			</tr>
+			
+			<tr>
+				<td>Tissue</td>
+				<td>#{experimentDataBean.supertypes}</td>
+			
+			</tr>
+			
+			<tr>
+				<td>Cell lineage</td>
+				<td>#{experimentDataBean.types}</td>
+			
+			</tr>
+	
+		</table>
+	
+		<br/>
+		
+		<h3>Samples</h3>
+		<table border="1">
+			<tr>
+				<td>Sample</td>
+				<td>Tissue</td>
+				<td>Cell lineage</td>
+				<td>Time</td>
+			</tr>
+		
+			<ui:repeat var="sam" value="#{experimentDataBean.samples}">
+				<tr>
+					<td>
+						<h:outputLink value="sampledata.jsf?p=#{sam[1]}" target="new" style="padding-left:1%;padding-right:6%">
+							#{sam[0]}
+						</h:outputLink>	
+					</td>
+					<td>#{sam[3]}</td>
+					<td>#{sam[2]}</td>
+					<td>#{sam[4]}</td>
+				</tr>
+			</ui:repeat>
+		
+		</table>
+		
+		
+		
+		<br/>
+		<h:commandButton id="giveMeATXT" value="Download table" action="#{downloadBean.getTextExp}"/>
+		&nbsp;
+		<a href='#!' onclick="toggledisplay('teshiden2');"><img src="./images/qmark.png" width="15" alt="sysbiolab-logo" border="0"/></a>
+		<div id="teshiden2" class="helpdiv" style="display: none;">
+			Suitable to open with spreadsheet software. Tab separated file with extra information regarding the samples.<br/>
+		</div>
+		
+		<h:commandButton id="giveMeAMATRIX" value="Download test Matrix" action="#{downloadBean.getExpMat}"/>
+		&nbsp;
+		<a href='#!' onclick="toggledisplay('teshiden1');"><img src="./images/qmark.png" width="15" alt="sysbiolab-logo" border="0"/></a>
+		<div id="teshiden1" class="helpdiv" style="display: none;">
+			Suitable for parsing; load into R, etc... Tab file with a standard sample X genes expression matrix.<br/>
+		</div>
+	
+	</p:outputPanel>
+
+
+	<h:inputHidden value="#{downloadBean.inputVal}" id="inputval"/>
+	<h:inputHidden value="#{downloadBean.extraparameters}" id="inputvalextra"/>
+	<h:inputHidden value="#{experimentDataBean.setId}" id="hiddenPos"/>
+	<h:inputHidden value="#{experimentDataBean.extraparameters}" id="hiddenExtra"/>
+	<p:commandButton id="update1" value="update1" update="sc:out1" action="#{experimentDataBean.getSampleData}" style="display:none"/>
+
+
+</h:form>
+</h:body>
+</html>
