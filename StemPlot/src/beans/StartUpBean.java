@@ -38,9 +38,9 @@ public class StartUpBean {
 
 		this.iterator = 1;
 		
-		this.basepath = "/home/jose/stemPlotFiles/";
+//		this.basepath = "/home/jose/stemPlotFiles/";  //this for the server
 //		this.basepath = "/home/jose/phb/plotFile/";
-//		this.basepath = "D:/frostemmapper/";
+		this.basepath = "D:/frostemmapper/";
 		
 		try {
 			Configuration configuration = new Configuration();

@@ -13,8 +13,8 @@ import dataconverters.DendogrameConverter;
 public class RAccess {
 	
 	//Be carefull with this one - use the first only in nero
-	protected static String pathlibline = ".libPaths( \"/home/jose/stemPlotFiles/Rlibs\" );\n";
-//	protected static String pathlibline = "";
+//	protected static String pathlibline = ".libPaths( \"/home/jose/stemPlotFiles/Rlibs\" );\n"; //for current server
+	protected static String pathlibline = "";
 	
 	public static boolean launchRserve(String cmd) { 
 		return launchRserve(cmd, "--no-save --slave","--no-save --slave",false);
@@ -681,7 +681,7 @@ public class RAccess {
 		data.append("za<-sum[[6]];\n");
 		data.append("za;\n");
 
-		System.out.println(data.toString());
+//		System.out.println(data.toString());
 		x = c.eval(data.toString());
 		
 		double[][] summat = x.asDoubleMatrix();
@@ -691,8 +691,15 @@ public class RAccess {
 		//==============================================
 		
 
-		System.out.println("rownames(tab);");
+//		System.out.println("rownames(tab);");
 		x = c.eval("rownames(tab);");
+		
+//		System.out.println("===============================");
+		x = c.eval(".libPaths();\n");
+//		System.out.println(x.asString());
+//		System.out.println("===============================");
+
+		c.eval("library(Heatplus);\n");
 		
 		res[0] = res1;
 		res[1] = x.asStrings();
@@ -700,7 +707,9 @@ public class RAccess {
 		
 		data= new StringBuffer("tab <- t(tab);\n");
 
-		data.append(pathlibline+"require(Heatplus);\n");
+//		data.append(pathlibline+"require(Heatplus);\n");
+
+//		data.append(pathlibline+"library(Heatplus);\n");
 		data.append("reg <- regHeatmap(tab, scale = c(\"none\"));\n");
 		
 		data.append("a <- as.hclust(reg$dendrogram$Col$dendro);\n");
